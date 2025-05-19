@@ -129,7 +129,7 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({
 
             <Button
               type="submit"
-              className="btn-krx w-full rounded-none text-dark-green"
+              className="btn-krx-outlined w-full rounded-none text-dark-green"
             >
               Зарегистрироваться
             </Button>
