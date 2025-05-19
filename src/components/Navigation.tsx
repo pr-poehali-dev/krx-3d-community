@@ -39,8 +39,8 @@ const Navigation: React.FC<NavigationProps> = ({
           {/* Logo and brand */}
           <div className="flex items-center">
             <a href="/" className="flex items-center">
-              <div className="flex items-center justify-center w-10 h-10 mr-2 bg-gradient-krx rounded-none">
-                <span className="text-white font-bold">K</span>
+              <div className="flex items-center justify-center w-10 h-10 mr-2 bg-gradient-krx rounded-none glow-subtle">
+                <span className="text-dark-green font-bold">K</span>
               </div>
               <span className="font-semibold text-lg hidden sm:block">
                 KRX Community
@@ -49,27 +49,27 @@ const Navigation: React.FC<NavigationProps> = ({
           </div>
 
           {/* Main Navigation - Desktop */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center space-x-2">
             <div
-              className={`nav-item ${activeNavItem === "explore" ? "active" : ""}`}
+              className={`nav-item rounded-none ${activeNavItem === "explore" ? "active" : ""}`}
               onClick={() => setActiveNavItem("explore")}
             >
               Исследовать
             </div>
             <div
-              className={`nav-item ${activeNavItem === "learn" ? "active" : ""}`}
+              className={`nav-item rounded-none ${activeNavItem === "learn" ? "active" : ""}`}
               onClick={() => setActiveNavItem("learn")}
             >
               Учиться
             </div>
             <div
-              className={`nav-item ${activeNavItem === "shop" ? "active" : ""}`}
+              className={`nav-item rounded-none ${activeNavItem === "shop" ? "active" : ""}`}
               onClick={() => setActiveNavItem("shop")}
             >
               Магазин
             </div>
             <div
-              className={`nav-item ${activeNavItem === "jobs" ? "active" : ""}`}
+              className={`nav-item rounded-none ${activeNavItem === "jobs" ? "active" : ""}`}
               onClick={() => setActiveNavItem("jobs")}
             >
               Вакансии
@@ -83,7 +83,7 @@ const Navigation: React.FC<NavigationProps> = ({
               <Input
                 type="search"
                 placeholder="Поиск..."
-                className="pl-8 w-[200px] rounded-none"
+                className="pl-8 w-[200px] rounded-none search-input"
               />
               <Search className="absolute left-2 h-4 w-4 text-muted-foreground" />
             </div>
@@ -97,7 +97,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 <Button
                   variant="ghost"
                   onClick={() => (window.location.href = "/profile")}
-                  className="hidden md:flex rounded-none"
+                  className="hidden md:flex rounded-none button-outlined"
                 >
                   <Icon name="User" className="mr-1 h-4 w-4" />
                   Профиль
@@ -105,14 +105,14 @@ const Navigation: React.FC<NavigationProps> = ({
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="md:hidden rounded-none"
+                  className="md:hidden rounded-none button-outlined"
                 >
                   <Icon name="User" className="h-5 w-5" />
                 </Button>
                 <Button
                   variant="outline"
                   onClick={handleLogout}
-                  className="hidden md:flex rounded-none"
+                  className="hidden md:flex rounded-none button-outlined"
                 >
                   Выйти
                 </Button>
@@ -122,12 +122,12 @@ const Navigation: React.FC<NavigationProps> = ({
                 <Button
                   variant="ghost"
                   onClick={onLoginClick}
-                  className="hidden md:flex rounded-none"
+                  className="hidden md:flex rounded-none button-outlined"
                 >
                   Вход
                 </Button>
                 <Button
-                  className="btn-krx hidden md:flex rounded-none text-dark-green"
+                  className="btn-krx-outlined hidden md:flex rounded-none text-dark-green"
                   onClick={onRegisterClick}
                 >
                   Регистрация
@@ -139,7 +139,7 @@ const Navigation: React.FC<NavigationProps> = ({
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden rounded-none"
+              className="md:hidden rounded-none button-outlined"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? (
@@ -159,45 +159,45 @@ const Navigation: React.FC<NavigationProps> = ({
             <Input
               type="search"
               placeholder="Поиск..."
-              className="mb-2 rounded-none"
+              className="mb-2 rounded-none search-input"
             />
 
-            <div
-              className={`py-2 ${activeNavItem === "explore" ? "text-primary font-medium" : ""}`}
+            <button
+              className={`nav-button-mobile ${activeNavItem === "explore" ? "active" : ""}`}
               onClick={() => setActiveNavItem("explore")}
             >
               Исследовать
-            </div>
-            <div
-              className={`py-2 ${activeNavItem === "learn" ? "text-primary font-medium" : ""}`}
+            </button>
+            <button
+              className={`nav-button-mobile ${activeNavItem === "learn" ? "active" : ""}`}
               onClick={() => setActiveNavItem("learn")}
             >
               Учиться
-            </div>
-            <div
-              className={`py-2 ${activeNavItem === "shop" ? "text-primary font-medium" : ""}`}
+            </button>
+            <button
+              className={`nav-button-mobile ${activeNavItem === "shop" ? "active" : ""}`}
               onClick={() => setActiveNavItem("shop")}
             >
               Магазин
-            </div>
-            <div
-              className={`py-2 ${activeNavItem === "jobs" ? "text-primary font-medium" : ""}`}
+            </button>
+            <button
+              className={`nav-button-mobile ${activeNavItem === "jobs" ? "active" : ""}`}
               onClick={() => setActiveNavItem("jobs")}
             >
               Вакансии
-            </div>
+            </button>
 
             {!isLoggedIn && (
               <div className="flex flex-col space-y-2 pt-2">
                 <Button
                   variant="outline"
                   onClick={onLoginClick}
-                  className="rounded-none"
+                  className="rounded-none button-outlined"
                 >
                   Вход
                 </Button>
                 <Button
-                  className="btn-krx rounded-none text-dark-green"
+                  className="btn-krx-outlined rounded-none text-dark-green"
                   onClick={onRegisterClick}
                 >
                   Регистрация
@@ -210,14 +210,14 @@ const Navigation: React.FC<NavigationProps> = ({
                 <Button
                   variant="outline"
                   onClick={() => (window.location.href = "/profile")}
-                  className="rounded-none"
+                  className="rounded-none button-outlined"
                 >
                   Профиль
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={handleLogout}
-                  className="rounded-none"
+                  className="rounded-none button-outlined"
                 >
                   Выйти
                 </Button>
