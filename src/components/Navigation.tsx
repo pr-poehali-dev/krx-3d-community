@@ -1,12 +1,9 @@
-import React from "react";
-import Logo from "@/components/navigation/Logo";
-import SearchBar from "@/components/navigation/SearchBar";
-import MainNavLinks from "@/components/navigation/MainNavLinks";
-import AuthButtons from "@/components/navigation/AuthButtons";
-import MobileMenuToggle from "@/components/navigation/MobileMenuToggle";
-import MobileMenu from "@/components/navigation/MobileMenu";
-import ThemeToggle from "@/components/ThemeToggle";
-import { useNavigation } from "@/components/navigation/useNavigation";
+import React, { useState } from "react";
+import { Search, Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import ThemeToggle from "./ThemeToggle";
+import Icon from "@/components/ui/icon";
 
 interface NavigationProps {
   onRegisterClick: () => void;
@@ -17,65 +14,218 @@ const Navigation: React.FC<NavigationProps> = ({
   onRegisterClick,
   onLoginClick,
 }) => {
-  const {
-    isMobileMenuOpen,
-    isLoggedIn,
-    activeNavItem,
-    setActiveNavItem,
-    toggleMobileMenu,
-    handleLogout,
-  } = useNavigation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [activeNavItem, setActiveNavItem] = useState("explore");
+
+  // Check if user is logged in
+  React.useEffect(() => {
+    const user = localStorage.getItem("krx-user");
+    if (user) {
+      const userData = JSON.parse(user);
+      setIsLoggedIn(userData.isLoggedIn);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("krx-user");
+    setIsLoggedIn(false);
+  };
 
   return (
-    <header className="border-b sticky top-0 backdrop-blur-lg bg-background/80 z-20">
-      <div className="container mx-auto px-4">
+    <header className="border-b sticky top-0 backdrop-blur-lg bg-background/80 z-20 w-full">
+      <div className="px-4 w-full">
         <div className="flex items-center justify-between h-16">
-          {/* Logo и бренд */}
+          {/* Logo and brand */}
           <div className="flex items-center">
-            <Logo />
+            <a href="/" className="flex items-center">
+              <div className="flex items-center justify-center w-10 h-10 mr-2 bg-gradient-krx rounded-none glow-subtle">
+                <span className="text-dark-green font-bold">K</span>
+              </div>
+              <span className="font-semibold text-lg hidden sm:block">
+                KRX Community
+              </span>
+            </a>
           </div>
 
-          {/* Основная навигация - Desktop */}
-          <MainNavLinks
-            activeNavItem={activeNavItem}
-            setActiveNavItem={setActiveNavItem}
-          />
+          {/* Main Navigation - Desktop */}
+          <nav className="hidden md:flex items-center space-x-2">
+            <div
+              className={`nav-item rounded-none ${activeNavItem === "explore" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("explore")}
+            >
+              Исследовать
+            </div>
+            <div
+              className={`nav-item rounded-none ${activeNavItem === "learn" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("learn")}
+            >
+              Учиться
+            </div>
+            <div
+              className={`nav-item rounded-none ${activeNavItem === "shop" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("shop")}
+            >
+              Магазин
+            </div>
+            <div
+              className={`nav-item rounded-none ${activeNavItem === "jobs" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("jobs")}
+            >
+              Вакансии
+            </div>
+          </nav>
 
-          {/* Правая часть - поиск, тема, аутентификация */}
+          {/* Right side actions */}
           <div className="flex items-center space-x-2">
-            {/* Поиск */}
-            <SearchBar />
+            {/* Search */}
+            <div className="hidden md:flex items-center relative rounded-none">
+              <Input
+                type="search"
+                placeholder="Поиск..."
+                className="pl-8 w-[200px] rounded-none search-input"
+              />
+              <Search className="absolute left-2 h-4 w-4 text-muted-foreground" />
+            </div>
 
-            {/* Переключатель темы */}
+            {/* Theme toggle */}
             <ThemeToggle />
 
-            {/* Кнопки аутентификации или профиля */}
-            <AuthButtons
-              isLoggedIn={isLoggedIn}
-              onLoginClick={onLoginClick}
-              onRegisterClick={onRegisterClick}
-              handleLogout={handleLogout}
-            />
+            {/* Auth buttons or profile */}
+            {isLoggedIn ? (
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="ghost"
+                  onClick={() => (window.location.href = "/profile")}
+                  className="hidden md:flex rounded-none button-outlined"
+                >
+                  <Icon name="User" className="mr-1 h-4 w-4" />
+                  Профиль
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="md:hidden rounded-none button-outlined"
+                >
+                  <Icon name="User" className="h-5 w-5" />
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleLogout}
+                  className="hidden md:flex rounded-none button-outlined"
+                >
+                  Выйти
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="ghost"
+                  onClick={onLoginClick}
+                  className="hidden md:flex rounded-none button-outlined"
+                >
+                  Вход
+                </Button>
+                <Button
+                  className="btn-krx-outlined hidden md:flex rounded-none text-dark-green"
+                  onClick={onRegisterClick}
+                >
+                  Регистрация
+                </Button>
+              </div>
+            )}
 
-            {/* Кнопка мобильного меню */}
-            <MobileMenuToggle
-              isOpen={isMobileMenuOpen}
-              toggleMenu={toggleMobileMenu}
-            />
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden rounded-none button-outlined"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
           </div>
         </div>
       </div>
 
-      {/* Мобильное меню */}
-      <MobileMenu
-        isOpen={isMobileMenuOpen}
-        activeNavItem={activeNavItem}
-        setActiveNavItem={setActiveNavItem}
-        onLoginClick={onLoginClick}
-        onRegisterClick={onRegisterClick}
-        isLoggedIn={isLoggedIn}
-        handleLogout={handleLogout}
-      />
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden p-4 bg-background border-t">
+          <div className="flex flex-col space-y-4">
+            <Input
+              type="search"
+              placeholder="Поиск..."
+              className="mb-2 rounded-none search-input"
+            />
+
+            <button
+              className={`nav-button-mobile ${activeNavItem === "explore" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("explore")}
+            >
+              Исследовать
+            </button>
+            <button
+              className={`nav-button-mobile ${activeNavItem === "learn" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("learn")}
+            >
+              Учиться
+            </button>
+            <button
+              className={`nav-button-mobile ${activeNavItem === "shop" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("shop")}
+            >
+              Магазин
+            </button>
+            <button
+              className={`nav-button-mobile ${activeNavItem === "jobs" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("jobs")}
+            >
+              Вакансии
+            </button>
+
+            {!isLoggedIn && (
+              <div className="flex flex-col space-y-2 pt-2">
+                <Button
+                  variant="outline"
+                  onClick={onLoginClick}
+                  className="rounded-none button-outlined"
+                >
+                  Вход
+                </Button>
+                <Button
+                  className="btn-krx-outlined rounded-none text-dark-green"
+                  onClick={onRegisterClick}
+                >
+                  Регистрация
+                </Button>
+              </div>
+            )}
+
+            {isLoggedIn && (
+              <div className="flex flex-col space-y-2 pt-2">
+                <Button
+                  variant="outline"
+                  onClick={() => (window.location.href = "/profile")}
+                  className="rounded-none button-outlined"
+                >
+                  Профиль
+                </Button>
+                <Button
+                  variant="ghost"
+                  onClick={handleLogout}
+                  className="rounded-none button-outlined"
+                >
+                  Выйти
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 };
