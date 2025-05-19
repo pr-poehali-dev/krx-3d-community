@@ -37,7 +37,7 @@ const ThemeToggle = () => {
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="rounded-none button-outlined"
+      className="rounded-none"
     >
       {theme === "light" ? (
         <Moon className="h-5 w-5" />
