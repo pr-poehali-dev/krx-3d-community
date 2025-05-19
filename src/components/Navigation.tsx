@@ -1,27 +1,26 @@
-
-import React, { useState } from 'react';
-import { Search, Menu, X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import ThemeToggle from './ThemeToggle';
-import Icon from '@/components/ui/icon';
+import React, { useState } from "react";
+import { Search, Menu, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import ThemeToggle from "./ThemeToggle";
+import Icon from "@/components/ui/icon";
 
 interface NavigationProps {
   onRegisterClick: () => void;
   onLoginClick: () => void;
 }
 
-const Navigation: React.FC<NavigationProps> = ({ 
-  onRegisterClick, 
-  onLoginClick 
+const Navigation: React.FC<NavigationProps> = ({
+  onRegisterClick,
+  onLoginClick,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [activeNavItem, setActiveNavItem] = useState('explore');
+  const [activeNavItem, setActiveNavItem] = useState("explore");
 
   // Check if user is logged in
   React.useEffect(() => {
-    const user = localStorage.getItem('krx-user');
+    const user = localStorage.getItem("krx-user");
     if (user) {
       const userData = JSON.parse(user);
       setIsLoggedIn(userData.isLoggedIn);
@@ -29,47 +28,49 @@ const Navigation: React.FC<NavigationProps> = ({
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('krx-user');
+    localStorage.removeItem("krx-user");
     setIsLoggedIn(false);
   };
 
   return (
-    <header className="border-b sticky top-0 backdrop-blur-lg bg-background/80 z-20">
-      <div className="container mx-auto px-4">
+    <header className="border-b sticky top-0 backdrop-blur-lg bg-background/80 z-20 w-full">
+      <div className="px-4 w-full">
         <div className="flex items-center justify-between h-16">
           {/* Logo and brand */}
           <div className="flex items-center">
             <a href="/" className="flex items-center">
-              <div className="flex items-center justify-center w-10 h-10 mr-2 bg-gradient-krx rounded-md">
+              <div className="flex items-center justify-center w-10 h-10 mr-2 bg-gradient-krx rounded-none">
                 <span className="text-white font-bold">K</span>
               </div>
-              <span className="font-semibold text-lg hidden sm:block">KRX Community</span>
+              <span className="font-semibold text-lg hidden sm:block">
+                KRX Community
+              </span>
             </a>
           </div>
 
           {/* Main Navigation - Desktop */}
           <nav className="hidden md:flex items-center space-x-1">
-            <div 
-              className={`nav-item ${activeNavItem === 'explore' ? 'active' : ''}`}
-              onClick={() => setActiveNavItem('explore')}
+            <div
+              className={`nav-item ${activeNavItem === "explore" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("explore")}
             >
               Исследовать
             </div>
-            <div 
-              className={`nav-item ${activeNavItem === 'learn' ? 'active' : ''}`}
-              onClick={() => setActiveNavItem('learn')}
+            <div
+              className={`nav-item ${activeNavItem === "learn" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("learn")}
             >
               Учиться
             </div>
-            <div 
-              className={`nav-item ${activeNavItem === 'shop' ? 'active' : ''}`}
-              onClick={() => setActiveNavItem('shop')}
+            <div
+              className={`nav-item ${activeNavItem === "shop" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("shop")}
             >
               Магазин
             </div>
-            <div 
-              className={`nav-item ${activeNavItem === 'jobs' ? 'active' : ''}`}
-              onClick={() => setActiveNavItem('jobs')}
+            <div
+              className={`nav-item ${activeNavItem === "jobs" ? "active" : ""}`}
+              onClick={() => setActiveNavItem("jobs")}
             >
               Вакансии
             </div>
@@ -78,11 +79,11 @@ const Navigation: React.FC<NavigationProps> = ({
           {/* Right side actions */}
           <div className="flex items-center space-x-2">
             {/* Search */}
-            <div className="hidden md:flex items-center relative rounded-md">
+            <div className="hidden md:flex items-center relative rounded-none">
               <Input
                 type="search"
                 placeholder="Поиск..."
-                className="pl-8 w-[200px]"
+                className="pl-8 w-[200px] rounded-none"
               />
               <Search className="absolute left-2 h-4 w-4 text-muted-foreground" />
             </div>
@@ -93,28 +94,40 @@ const Navigation: React.FC<NavigationProps> = ({
             {/* Auth buttons or profile */}
             {isLoggedIn ? (
               <div className="flex items-center space-x-2">
-                <Button variant="ghost" onClick={() => window.location.href = '/profile'} className="hidden md:flex">
+                <Button
+                  variant="ghost"
+                  onClick={() => (window.location.href = "/profile")}
+                  className="hidden md:flex rounded-none"
+                >
                   <Icon name="User" className="mr-1 h-4 w-4" />
                   Профиль
                 </Button>
-                <Button variant="ghost" size="icon" className="md:hidden">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="md:hidden rounded-none"
+                >
                   <Icon name="User" className="h-5 w-5" />
                 </Button>
-                <Button variant="outline" onClick={handleLogout} className="hidden md:flex">
+                <Button
+                  variant="outline"
+                  onClick={handleLogout}
+                  className="hidden md:flex rounded-none"
+                >
                   Выйти
                 </Button>
               </div>
             ) : (
               <div className="flex items-center space-x-2">
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   onClick={onLoginClick}
-                  className="hidden md:flex"
+                  className="hidden md:flex rounded-none"
                 >
                   Вход
                 </Button>
-                <Button 
-                  className="btn-krx hidden md:flex"
+                <Button
+                  className="btn-krx hidden md:flex rounded-none text-dark-green"
                   onClick={onRegisterClick}
                 >
                   Регистрация
@@ -123,13 +136,17 @@ const Navigation: React.FC<NavigationProps> = ({
             )}
 
             {/* Mobile Menu Button */}
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="md:hidden"
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden rounded-none"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
@@ -142,39 +159,66 @@ const Navigation: React.FC<NavigationProps> = ({
             <Input
               type="search"
               placeholder="Поиск..."
-              className="mb-2"
+              className="mb-2 rounded-none"
             />
-            
-            <div className={`py-2 ${activeNavItem === 'explore' ? 'text-primary font-medium' : ''}`}>
+
+            <div
+              className={`py-2 ${activeNavItem === "explore" ? "text-primary font-medium" : ""}`}
+              onClick={() => setActiveNavItem("explore")}
+            >
               Исследовать
             </div>
-            <div className={`py-2 ${activeNavItem === 'learn' ? 'text-primary font-medium' : ''}`}>
+            <div
+              className={`py-2 ${activeNavItem === "learn" ? "text-primary font-medium" : ""}`}
+              onClick={() => setActiveNavItem("learn")}
+            >
               Учиться
             </div>
-            <div className={`py-2 ${activeNavItem === 'shop' ? 'text-primary font-medium' : ''}`}>
+            <div
+              className={`py-2 ${activeNavItem === "shop" ? "text-primary font-medium" : ""}`}
+              onClick={() => setActiveNavItem("shop")}
+            >
               Магазин
             </div>
-            <div className={`py-2 ${activeNavItem === 'jobs' ? 'text-primary font-medium' : ''}`}>
+            <div
+              className={`py-2 ${activeNavItem === "jobs" ? "text-primary font-medium" : ""}`}
+              onClick={() => setActiveNavItem("jobs")}
+            >
               Вакансии
             </div>
-            
+
             {!isLoggedIn && (
               <div className="flex flex-col space-y-2 pt-2">
-                <Button variant="outline" onClick={onLoginClick}>
+                <Button
+                  variant="outline"
+                  onClick={onLoginClick}
+                  className="rounded-none"
+                >
                   Вход
                 </Button>
-                <Button className="btn-krx" onClick={onRegisterClick}>
+                <Button
+                  className="btn-krx rounded-none text-dark-green"
+                  onClick={onRegisterClick}
+                >
                   Регистрация
                 </Button>
               </div>
             )}
-            
+
             {isLoggedIn && (
               <div className="flex flex-col space-y-2 pt-2">
-                <Button variant="outline" onClick={() => window.location.href = '/profile'}>
+                <Button
+                  variant="outline"
+                  onClick={() => (window.location.href = "/profile")}
+                  className="rounded-none"
+                >
                   Профиль
                 </Button>
-                <Button variant="ghost" onClick={handleLogout}>
+                <Button
+                  variant="ghost"
+                  onClick={handleLogout}
+                  className="rounded-none"
+                >
                   Выйти
                 </Button>
               </div>

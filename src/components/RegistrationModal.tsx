@@ -1,39 +1,41 @@
-
-import React from 'react';
-import { X } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import React from "react";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface RegistrationModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, onClose }) => {
-  const [email, setEmail] = React.useState('');
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
-  const [error, setError] = React.useState('');
+const RegistrationModal: React.FC<RegistrationModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
+  const [email, setEmail] = React.useState("");
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [error, setError] = React.useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     // Basic validation
     if (!email || !username || !password || !confirmPassword) {
-      setError('Все поля обязательны для заполнения');
+      setError("Все поля обязательны для заполнения");
       return;
     }
 
     if (password !== confirmPassword) {
-      setError('Пароли не совпадают');
+      setError("Пароли не совпадают");
       return;
     }
 
     if (password.length < 6) {
-      setError('Пароль должен содержать минимум 6 символов');
+      setError("Пароль должен содержать минимум 6 символов");
       return;
     }
 
@@ -41,11 +43,14 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, onClose }
     // Instead, we'll just simulate it for now
 
     // Simulate successful registration
-    localStorage.setItem('krx-user', JSON.stringify({
-      username,
-      email,
-      isLoggedIn: true
-    }));
+    localStorage.setItem(
+      "krx-user",
+      JSON.stringify({
+        username,
+        email,
+        isLoggedIn: true,
+      }),
+    );
 
     // Close the modal and refresh the parent component
     onClose();
@@ -56,10 +61,18 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, onClose }
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content fade-in" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-content fade-in"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Регистрация</h2>
-          <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={onClose}
+            className="rounded-full"
+          >
             <X className="h-4 w-4" />
           </Button>
         </div>
@@ -114,14 +127,17 @@ const RegistrationModal: React.FC<RegistrationModalProps> = ({ isOpen, onClose }
               />
             </div>
 
-            <Button type="submit" className="btn-krx w-full mt-2">
+            <Button
+              type="submit"
+              className="btn-krx w-full rounded-none text-dark-green"
+            >
               Зарегистрироваться
             </Button>
           </div>
         </form>
 
         <div className="mt-4 text-center text-sm text-muted-foreground">
-          Уже есть аккаунт?{' '}
+          Уже есть аккаунт?{" "}
           <a href="#" className="text-primary underline">
             Войти
           </a>

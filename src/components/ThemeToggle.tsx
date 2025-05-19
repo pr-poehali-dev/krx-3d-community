@@ -1,50 +1,48 @@
-
-import React from 'react';
-import { Moon, Sun } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React from "react";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = React.useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = React.useState<"light" | "dark">("dark");
 
   React.useEffect(() => {
     // Check for system preference or saved preference
-    const savedTheme = localStorage.getItem('krx-theme');
+    const savedTheme = localStorage.getItem("krx-theme");
     if (savedTheme) {
-      setTheme(savedTheme as 'light' | 'dark');
+      setTheme(savedTheme as "light" | "dark");
     } else {
       // Default to dark theme
-      setTheme('dark');
+      setTheme("dark");
     }
   }, []);
 
   React.useEffect(() => {
     // Apply theme to document
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
-    
+
     // Save preference
-    localStorage.setItem('krx-theme', theme);
+    localStorage.setItem("krx-theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (
-    <Button 
-      variant="ghost" 
-      size="icon" 
-      className="rounded-md"
+    <Button
+      variant="ghost"
+      size="icon"
       onClick={toggleTheme}
-      aria-label={theme === 'dark' ? 'Переключить на светлую тему' : 'Переключить на темную тему'}
+      className="rounded-none"
     >
-      {theme === 'dark' ? (
-        <Sun className="h-5 w-5" />
-      ) : (
+      {theme === "light" ? (
         <Moon className="h-5 w-5" />
+      ) : (
+        <Sun className="h-5 w-5" />
       )}
     </Button>
   );

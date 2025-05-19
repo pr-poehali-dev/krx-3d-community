@@ -1,10 +1,9 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -13,27 +12,27 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
+    --primary: 162 90% 35%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
+    --secondary: 162 45% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
+    --muted: 162 45% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
+    --accent: 162 45% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+    --ring: 162 90% 35%;
+    --radius: 0rem;
 
     /* Custom KRX colors */
-    --krx-blue: 221.2 83.2% 53.3%;
+    --krx-blue: 162 90% 35%;
     --krx-teal: 173 86% 47%;
     --krx-dark: 222.2 84% 4.9%;
     --krx-light: 210 40% 98%;
-    
+
     /* Sidebar colors */
     --sidebar-background: var(--background);
     --sidebar-foreground: var(--foreground);
@@ -44,34 +43,34 @@
     --sidebar-border: var(--border);
     --sidebar-ring: var(--ring);
   }
- 
+
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 215 28% 8%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 7.9%;
+    --card: 215 28% 11%;
     --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 7.9%;
+    --popover: 215 28% 11%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 162 84% 45%;
     --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 162 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 162 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 162 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --border: 162 32.6% 17.5%;
+    --input: 162 32.6% 17.5%;
+    --ring: 162 84% 45%;
 
     /* Custom KRX colors */
-    --krx-blue: 217.2 91.2% 59.8%;
+    --krx-blue: 162 84% 45%;
     --krx-teal: 173 86% 47%;
     --krx-dark: 222.2 84% 4.9%;
     --krx-light: 210 40% 98%;
-    
+
     /* Sidebar colors */
     --sidebar-background: var(--background);
     --sidebar-foreground: var(--foreground);
@@ -83,28 +82,49 @@
     --sidebar-ring: var(--ring);
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Raleway", sans-serif;
   }
 }
 
 .bg-gradient-krx {
-  background: linear-gradient(135deg, hsl(var(--krx-blue)), hsl(var(--krx-teal)));
+  background: linear-gradient(
+    135deg,
+    hsl(var(--krx-blue)),
+    hsl(var(--krx-teal))
+  );
+}
+
+.bg-hero-pattern {
+  background: radial-gradient(
+    circle at right top,
+    hsl(185, 88%, 15%),
+    hsl(215, 88%, 8%)
+  );
 }
 
 .btn-krx {
-  @apply bg-gradient-krx text-white font-medium px-4 py-2 border-0 transition-all duration-200 hover:opacity-90;
-  border-radius: 4px;
+  @apply bg-gradient-krx text-dark-green font-medium px-4 py-2 border-0 transition-all duration-200 hover:opacity-90;
+  border-radius: 0;
+}
+
+.text-dark-green {
+  @apply text-zinc-900;
 }
 
 .nav-item {
@@ -117,7 +137,36 @@
 
 .pattern-background {
   background-color: hsl(var(--background));
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232C5DC9' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at top right,
+    hsla(180, 70%, 20%, 0.5),
+    hsla(190, 80%, 7%, 0.2) 60%,
+    hsla(190, 80%, 5%, 0) 100%
+  );
+  z-index: 0;
+}
+
+.pattern-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2314B8A6' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.07;
+  z-index: 0;
 }
 
 .card-hover {
@@ -132,15 +181,17 @@
 }
 
 .tag {
-  @apply inline-block px-2 py-1 text-xs font-medium rounded-md bg-secondary text-secondary-foreground mr-1;
+  @apply inline-block px-2 py-1 text-xs font-medium mr-1;
 }
 
 .tag.new {
-  @apply bg-blue-600 text-white;
+  background: linear-gradient(135deg, hsl(180, 70%, 40%), hsl(180, 70%, 30%));
+  @apply text-white;
 }
 
 .tag.popular {
-  @apply bg-purple-600 text-white;
+  background: linear-gradient(135deg, hsl(280, 70%, 45%), hsl(240, 70%, 40%));
+  @apply text-white;
 }
 
 /* Animations */
@@ -149,8 +200,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Modal overlay */
@@ -159,5 +214,5 @@
 }
 
 .modal-content {
-  @apply bg-card p-6 rounded-md w-full max-w-md shadow-xl;
+  @apply bg-card p-6 w-full max-w-md shadow-xl;
 }
